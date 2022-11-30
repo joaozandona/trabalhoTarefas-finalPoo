@@ -41,11 +41,12 @@ const listTarefas = (req: Request, res: Response) => {
 
 const concluiTarefa = (req: Request, res: Response) => {
   const tarefa = parseInt(req.params.id);
+  const concluida = parseInt(req.params.concluida);
   if (!tarefa) {
     return badRequest(res, "Tarefa a ser concluida não foi informada");
   }
   tarefaModel
-    .concluiTarefa(tarefa)
+    .concluiTarefa(tarefa, concluida)
     .then((id) => {
       res.json({ id });
     })

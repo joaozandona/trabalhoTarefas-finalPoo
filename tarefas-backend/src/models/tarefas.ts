@@ -9,8 +9,8 @@ export type Tarefa = {
 
 const insertTarefa = async (tarefa: Tarefa) => {
   await dbQuery(
-    `INSERT INTO tarefa (name, concluida, prioridade) VALUES (?, ?, ?)`,
-    [tarefa.name, tarefa.concluida, tarefa.prioridade]
+    `INSERT INTO tarefa (name, concluida, prioridade, desc) VALUES (?, ?, ?, ?)`,
+    [tarefa.name, tarefa.concluida, tarefa.prioridade, tarefa.desc]
   );
   let retorno = await dbQuery(
     `SELECT seq AS id FROM sqlite_sequence WHERE name = 'tarefa'`
@@ -23,8 +23,13 @@ const listTarefas = async () => {
   return retorno as Tarefa[];
 };
 
-const concluiTarefa = async (tarefa: number) => {
-  await dbQuery(`UPDATE tarefa SET concluida = 1 WHERE id = ?`, [tarefa]);
+const concluiTarefa = async (tarefa: number, concluida: number) => {
+  if (concluida == 1) concluida = 0;
+  else concluida = 1;
+  await dbQuery(`UPDATE tarefa SET concluida = ? WHERE id = ?`, [
+    concluida,
+    tarefa,
+  ]);
   let retorno = await dbQuery(`SELECT id, concluida FROM tarefa WHERE id = ?`, [
     tarefa,
   ]);

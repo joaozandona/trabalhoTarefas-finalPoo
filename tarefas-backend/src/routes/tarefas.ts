@@ -10,7 +10,7 @@ app.use(express.static("public"));
 const tarefaRouter = Router();
 tarefaRouter.post("/", tarefaController.insertTarefa);
 tarefaRouter.get("/", tarefaController.listTarefas);
-tarefaRouter.patch("/conclui/:id", tarefaController.concluiTarefa);
+tarefaRouter.put("/conclui/:id/:concluida", tarefaController.concluiTarefa);
 tarefaRouter.put("/:id", tarefaController.alteraTarefa);
 tarefaRouter.delete("/:id", tarefaController.deletaTarefa);
 

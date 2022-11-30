@@ -41,9 +41,9 @@ function Home() {
             Tarefa concluida?
           </label>
         </div>
-        <button id="button" className="btn btn-primary">
+        <a href="http://localhost:3000" id="button" className="btn btn-primary">
           Submit
-        </button>
+        </a>
       </form>
       {""}
     </div>

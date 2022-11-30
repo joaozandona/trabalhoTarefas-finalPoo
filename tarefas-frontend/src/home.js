@@ -47,7 +47,22 @@ function Home() {
                     type="checkbox"
                     id="concluida"
                     name="concluida"
-                    checked
+                    defaultChecked
+                    onClick={() => {
+                      axios
+                        .put(
+                          "http://localhost:8091/api/v1/tarefa/conclui/" +
+                            tarefa.id +
+                            "/" +
+                            tarefa.concluida
+                        )
+                        .then((response) => {
+                          console.log("foi");
+                        })
+                        .catch(() => {
+                          console.log("deu errado");
+                        });
+                    }}
                   ></input>
                 )}
                 {tarefa.concluida == 0 && (
@@ -59,7 +74,8 @@ function Home() {
                 )}
                 <label for="concluida"> Tarefa concluida? </label>
               </div>
-              <button
+              <a
+                href="http://localhost:3000"
                 id="buttonApagar"
                 onClick={() => {
                   axios
@@ -73,11 +89,11 @@ function Home() {
                 }}
               >
                 Apagar
-              </button>
+              </a>
             </div>
           );
         })}
-        <a href="http://">Adicionar Tarefa</a>
+        <a href="http://localhost:3000/novaTarefa">Adicionar Tarefa</a>
       </div>
     </div>
   );
