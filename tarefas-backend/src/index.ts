@@ -7,6 +7,11 @@ import bodyParser from "body-parser";
 const PORT = process.env.PORT || 8091;
 
 const app = express();
+
+var cors = require("cors");
+
+app.use(cors()); // Use this after the variable declaration
+
 app.use(bodyParser.json());
 useRoutes(app);
 

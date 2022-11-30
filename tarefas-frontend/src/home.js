@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./home.css";
+import "./delet";
+
+let idApagar;
+
+function deletar() {
+  console.log(idApagar);
+}
 
 function Home() {
   const [tarefas, setTarefas] = useState([]);
@@ -14,6 +21,15 @@ function Home() {
       .catch(() => {
         console.log("deu errado");
       });
+
+    const script = document.createElement("script");
+    script.type = "text/babel";
+    script.src = "./delet.js";
+    script.async = true;
+    document.body.appendChild(script);
+    return () => {
+      document.body.removeChild(script);
+    };
   }, []);
 
   return (
@@ -43,8 +59,21 @@ function Home() {
                 )}
                 <label for="concluida"> Tarefa concluida? </label>
               </div>
-              <button>Editar</button>
-              <button>Apagar</button>
+              <button
+                id="buttonApagar"
+                onClick={() => {
+                  axios
+                    .delete("http://localhost:8091/api/v1/tarefa/" + tarefa.id)
+                    .then((response) => {
+                      console.log("foi");
+                    })
+                    .catch(() => {
+                      console.log("deu errado");
+                    });
+                }}
+              >
+                Apagar
+              </button>
             </div>
           );
         })}

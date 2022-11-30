@@ -9,8 +9,8 @@ export type Tarefa = {
 
 const insertTarefa = async (tarefa: Tarefa) => {
   await dbQuery(
-    `INSERT INTO tarefa (name, concluida, prioridade) VALUES (?, 0, ?)`,
-    [tarefa.name, tarefa.prioridade]
+    `INSERT INTO tarefa (name, concluida, prioridade) VALUES (?, ?, ?)`,
+    [tarefa.name, tarefa.concluida, tarefa.prioridade]
   );
   let retorno = await dbQuery(
     `SELECT seq AS id FROM sqlite_sequence WHERE name = 'tarefa'`
